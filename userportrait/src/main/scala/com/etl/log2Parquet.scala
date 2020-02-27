@@ -4,7 +4,7 @@ import java.util.Properties
 
 import org.apache.spark.SparkConf
 import org.apache.spark.rdd.RDD
-import org.apache.spark.sql.{Row, SaveMode, SparkSession}
+import org.apache.spark.sql.{Column, Row, SaveMode, SparkSession}
 
 object log2Parquet {
   def main(args: Array[String]): Unit = {
@@ -131,15 +131,10 @@ object log2Parquet {
         |group by
         | `provincename`,
         | `cityname`
-        |""".stripMargin).show
-//    localWriteFrame.coalesce(1).write.json("file:///f:/data/obj/hx/tongji")
+        |""".stripMargin)
+//    localWriteFrame.repartition(new Column(localWriteFrame(""))).write.json("file:///f:/data/obj/hx/tongji2")
 
-    val url = "jdbc:mysql://localhost:3306/yonghuhuaxiang"
-    val table = "user_spark_sql"
-    val properties = new Properties()
-    properties.put("user", "root")
-    properties.put("password", "root")
-    frame.write.mode(SaveMode.Append).jdbc(url, table, properties)
+    WriteData.toMysql(localWriteFrame)
 
     session.stop
   }

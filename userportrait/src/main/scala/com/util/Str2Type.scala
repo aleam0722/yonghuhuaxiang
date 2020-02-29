@@ -1,4 +1,4 @@
-package com.etl
+package com.util
 
 object Str2Type {
 

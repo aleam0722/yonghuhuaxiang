@@ -2,6 +2,7 @@ package com.etl
 
 import java.util.Properties
 
+import com.util.{SchemaUtils, Str2Type, WriteData}
 import org.apache.spark.SparkConf
 import org.apache.spark.rdd.RDD
 import org.apache.spark.sql.{Column, Row, SaveMode, SparkSession}
@@ -136,6 +137,7 @@ object log2Parquet {
 
     WriteData.toMysql(localWriteFrame)
 
+    WriteData.toParquet(frame)
     session.stop
   }
 }

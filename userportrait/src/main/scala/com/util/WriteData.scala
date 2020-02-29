@@ -1,4 +1,4 @@
-package com.etl
+package com.util
 
 import java.util.Properties
 
@@ -6,6 +6,10 @@ import com.typesafe.config.ConfigFactory
 import org.apache.spark.sql.{DataFrame, SaveMode}
 
 object WriteData {
+  def toParquet(frame: DataFrame) = {
+    frame.coalesce(1).write.parquet("file:///f:/data/obj/hx/parquet")
+  }
+
   def toMysql(frame: DataFrame) = {
 //    val properties = new Properties()
 //    properties.load( WriteData.getClass.getResourceAsStream("mysqlconn.properties") )
